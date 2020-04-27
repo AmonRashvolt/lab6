@@ -3,6 +3,7 @@
 #include<iostream>
 #include<cmath>
 #include<cstdio>
+#include <fstream>
 
 using namespace std;
 
@@ -101,22 +102,25 @@ void GreatDescent(  double bx, double by, double epsilon) {
 	double x[NMAX];
 	double y[NMAX];
 	double alpha[NMAX];
-	int k;
+	int k,gh;
 	double u;
 	double x1[5];
 	double p[5];
+	ofstream out;
+	out.open("ans1.txt");
 	//Начальное приближение u[0]
 	x[0] = bx;
 	y[0] = by;
-	
+	gh = 0;
 	cout << "RES:" << endl << "x(" << 0 << "): (" << x[0] << ", " << y[0] << ")" << endl;
-
+	out << x[0] << " " << y[0] << " " << f(x[0], y[0]) << endl;
 	for (k = 0; ; k++) {
 		x1[k] = x[0];
 		x1[k+1] = y[0];
 		p[k] = -f_dx(x[0],y[0]);
 		p[k+1] = -f_dx(x[0], y[0]);
 		u = mso(x1, p);
+		gh++;
 		//cout << "++++++++ " << u << "+++++++" << endl;
 
 
@@ -128,6 +132,7 @@ void GreatDescent(  double bx, double by, double epsilon) {
 
 		cout << "x(" << k + 1 << "): " << "(" << x[k + 1] << ", " << y[k + 1] << ")" << endl
 			<< "f(" << x[k + 1] << ", " << y[k + 1] << ") = " << f(x[k + 1], y[k + 1]) << endl;
+		out  << x[k + 1] << " " << y[k + 1] <<  " " << f(x[k + 1], y[k + 1]) << endl;
 		//cout <<"gg "<< norma(x[k + 1] - x[k], y[k + 1] - y[k])<<" "<<x[k]<<" "<<y[k]<<"dfs "<<alpha[k] << endl;
 		//if (k > 1) {
 			//Проверяем условие остановки
@@ -143,9 +148,9 @@ void GreatDescent(  double bx, double by, double epsilon) {
 		y[k] = y[k + 1];
 		k = 0;
 	}
-
+	out.close();
 	cout << "Tochka min (epsilon=" << epsilon << ")" << endl
-		<< "f(" << x[k + 1] << ", " << y[k + 1] << ") = " << f(x[k + 1], y[k + 1]) << endl;
+		<< "f(" << x[k + 1] << ", " << y[k + 1] << ") = " << f(x[k + 1], y[k + 1]) << " gh= "<<gh<< endl;
 	//return f(x[k + 1], y[k + 1]);
 }
 
