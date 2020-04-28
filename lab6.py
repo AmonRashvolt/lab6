@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
-data = np.loadtxt("C:\\Users\\serge\\source\\repos\\lab6\\ans1.txt")
+data = np.loadtxt("ans1.txt")
 delta = 0.025
 x = np.arange(-30.0, 30.0, delta)
 y = np.arange(-20.0, 20.0, delta)
